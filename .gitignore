@@ -8,9 +8,12 @@
 *.war
 *.ear
 
+<<<<<<< HEAD
 */appengine-generated
 */classes
 */lib
 
+=======
+>>>>>>> 6ad90062261dddafb83efca880c3f93fae4b8c12
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
