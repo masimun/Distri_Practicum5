@@ -187,6 +187,7 @@ public class CarRentalModel {
             
             Quote out = company.createQuote(constraints, renterName);
             System.out.println(out.toString());
+            em.close();
             return out;
         } catch(Exception e) {
             throw new ReservationException(e.toString());
@@ -210,6 +211,7 @@ public class CarRentalModel {
             		.getResultList().get(0);
 			Reservation res = company.confirmQuote(q);
 			em.close();	
+
 		}
 		catch(Exception e){
 			throw new ReservationException(e.toString());
