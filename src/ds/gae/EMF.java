@@ -12,4 +12,7 @@ public final class EMF {
     public static EntityManagerFactory get() {
         return emfInstance;
     }
+    
+    
+    
 }

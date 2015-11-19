@@ -55,8 +55,13 @@ import ds.gae.ReservationException;
     //            query="SELECT t.name FROM CarRentalCompany r, IN (r.carTypes) t WHERE r.name = :company"),
                 
                 /*
+                 * 
+                 * 
     @NamedQuery(name="ds.gae.entities.CarRentalCompany.getCheapestCarType",
                 query="SELECT ct FROM Car c JOIN c.type ct JOIN c.reservations res WHERE :end <= res.startDate OR res.endDate <= :start ORDER BY ct.rentalPricePerDay ")*/
+    @NamedQuery(name="ds.gae.entities.CarRentalCompany.getCarsByCarTypeAndCompanyName",
+				query="SELECT r.cars AS c FROM CarRentalCompany r WHERE r.name = :company"),
+        	
     @NamedQuery(name="ds.gae.entities.CarRentalCompany.getCarRentalCompanyByName",
     			query="SELECT c FROM CarRentalCompany c WHERE c.name = :company")
     
@@ -70,9 +75,11 @@ public class CarRentalCompany {
 	private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
 	@Id
 	private String name;
+
 	@OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = LAZY)
 	private Set<Car> cars;
-	@ManyToMany(fetch = LAZY)
+	
+	@ManyToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = LAZY)
 	private Map<String,CarType> carTypes = new HashMap<String, CarType>();
 
 	/***************

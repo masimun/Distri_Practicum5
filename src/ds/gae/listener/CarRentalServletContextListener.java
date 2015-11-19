@@ -35,10 +35,7 @@ public class CarRentalServletContextListener implements ServletContextListener {
 	
 	private boolean isDummyDataAvailable() {
 		// If the Hertz car rental company is in the datastore, we assume the dummy data is available
-
-		// FIXME: use persistence instead
-		return CarRentalModel.get().CRCS.containsKey("Hertz");
-
+		return CarRentalModel.get().getCarRentalCompanyNames().contains("Hertz");
 	}
 	
 	private void addDummyData() {
@@ -51,16 +48,10 @@ public class CarRentalServletContextListener implements ServletContextListener {
         try {
         	
             Set<Car> cars = loadData(name, datafile);
-            //CarRentalCompany company = new CarRentalCompany(name, cars);
-            
-    		// FIXME: use persistence instead
+           
 
-            CarRentalModel.get().createCarRentalCompany(name);
-            
-            
-            //CarRentalModel.get().CRCS.put(name, company);
-            
-            
+            CarRentalModel.get().createCarRentalCompany(name,cars);
+ 
             
         } catch (NumberFormatException ex) {
             Logger.getLogger(CarRentalServletContextListener.class.getName()).log(Level.SEVERE, "bad file", ex);
@@ -70,7 +61,6 @@ public class CarRentalServletContextListener implements ServletContextListener {
 	}
 	
 	public static Set<Car> loadData(String name, String datafile) throws NumberFormatException, IOException {
-		// FIXME: adapt the implementation of this method to your entity structure
 		
 		Set<Car> cars = new HashSet<Car>();
 		int carId = 1;
@@ -93,10 +83,15 @@ public class CarRentalServletContextListener implements ServletContextListener {
 					Float.parseFloat(csvReader.nextToken()),
 					Double.parseDouble(csvReader.nextToken()),
 					Boolean.parseBoolean(csvReader.nextToken()));
+			
+			
+			CarRentalModel.get().storeCarType(type);
 			//create N new cars with given type, where N is the 5th field
 			for (int i = Integer.parseInt(csvReader.nextToken()); i > 0; i--) {
 				cars.add(new Car(carId++, type));
+				//CarRentalModel.get().createCar(carId++, type.getId());
 			}
+			
 		}
 
 		return cars;

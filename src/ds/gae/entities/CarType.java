@@ -4,13 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class CarType {
     
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+    private Key key;
+
 	
     private String name;
     private int nbOfSeats;
@@ -86,7 +90,7 @@ public class CarType {
 		return true;
 	}
 
-	public int getId() {
-		return id;
+	public Key getId() {
+		return key;
 	}
 }

@@ -1,4 +1,4 @@
-﻿<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="ds.gae.CarRentalModel"%>
 <%@page import="ds.gae.entities.Reservation"%>
 <%@page import="ds.gae.view.JSPSite"%>
@@ -84,6 +84,7 @@ for (String crc : CarRentalModel.get().getAllRentalCompanyNames()) {
 						<th class="numbers">Trunk</th>
 						<th class="numbers">Price Per Day</th>			
 						<th>Car Ids</th>
+                        <th class="numbers"># Cars</th>
 					</tr>
 	<%
 	for (CarType t : types ) { 
@@ -96,16 +97,20 @@ for (String crc : CarRentalModel.get().getAllRentalCompanyNames()) {
 						<td class="numbers"><%= t.getRentalPricePerDay() %></td>
 						<td width="300px" style="text-align: left;">
 		<% 
+           int j = 0;
 		for (int i : CarRentalModel.get().getCarIdsByCarType(crc, t)) {
 		%>
 			<%= i %>
 		<%
-		}
+		      j++;
+           }
 		%>
 						</td>
+                    <td class="numbers"><%=j %></td>
 					</tr>
 	<% 
-	}
+       }
+	
 	%>
 				</table>
 

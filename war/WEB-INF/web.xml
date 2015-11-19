@@ -10,4 +10,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<listener-class>ds.gae.listener.CarRentalServletContextListener</listener-class>
 	</listener>
   
+    <welcome-file-list>
+		<welcome-file>persTest.jsp</welcome-file>
+	</welcome-file-list>
+    
  </web-app>

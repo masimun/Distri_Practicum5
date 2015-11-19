@@ -16,7 +16,7 @@ import static javax.persistence.TemporalType.DATE;
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     
     @Temporal(DATE)

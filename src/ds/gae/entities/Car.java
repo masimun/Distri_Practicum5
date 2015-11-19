@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.FetchType.EAGER;
@@ -26,7 +27,10 @@ public class Car {
 	
     private int id;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST},fetch =EAGER)
+    
+    @Unowned
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH},fetch=EAGER)
+    //@ManyToOne(fetch=LAZY)
     private CarType type;
     
     @OneToMany(cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch=LAZY)
